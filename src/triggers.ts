@@ -1,3 +1,12 @@
+function formSubmitTrigger(): void {
+  ScriptApp.newTrigger('responseToFormSubmit')
+    .forForm(FormApp.getActiveForm())
+    .onFormSubmit()
+    .create();
+
+  console.log('Form submit trigger created');
+}
+
 // create a trigger to ping supabase in >almost< 7 days to avoid hibernation
 function supabasePingTrigger(): void {
   const triggers = ScriptApp.getProjectTriggers();
@@ -11,15 +20,18 @@ function supabasePingTrigger(): void {
   );
 
   if (existingTrigger) {
-    console.log('Supabase ping trigger already exists');
-    console.log(existingTrigger);
+    console.log('Supabase ping trigger already exists. Deleting...');
     ScriptApp.deleteTrigger(existingTrigger);
     console.log('Old Supabase ping trigger deleted');
   }
 
+  const oneMinute = 60 * 1000;
+  const oneHour = oneMinute * 60;
+  const oneDay = oneHour * 24;
+
   ScriptApp.newTrigger('pingSupabase')
     .timeBased()
-    .after(50000 * 24 * 7) // 6 days and 23 hours
+    .after(oneDay * 6 + oneHour * 23)
     .create();
 
   console.log('New supabase ping trigger created');
