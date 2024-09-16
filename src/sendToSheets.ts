@@ -1,4 +1,19 @@
-function sendToSheets(row: RowData) {
+function sendToSheets(rowData: RowData) {
   console.log('Sending row data to sheets...');
-  console.log(JSON.stringify(row, null, 2));
+
+  if (!rowData) {
+    throw new Error('Row data is empty.');
+  }
+
+  const sheet = getSheet();
+
+  sheet.appendRow([
+    rowData.id,
+    rowData.sentAt,
+    rowData.slug,
+    rowData.term,
+    rowData.videoURL,
+    rowData.startsAt,
+    rowData.endsAt,
+  ]);
 }

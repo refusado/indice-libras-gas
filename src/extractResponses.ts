@@ -4,7 +4,7 @@ GoogleAppsScript.Forms.ItemResponse[] {
   
   // for some reason sometimes the form event return an empty itemResponses
   // this loop will get around this problem
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < GET_RESPONSES_MAX_RETRIES; i++) {
     responses = event.response.getItemResponses();
 
     if (responses.length > 0) break;
