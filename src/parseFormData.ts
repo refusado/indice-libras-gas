@@ -1,9 +1,9 @@
 // https://developers.google.com/apps-script/reference/forms/item-response#getResponse()
 // https://developers.google.com/apps-script/reference/forms/item-response#getItem()
 
-interface FormResponse {
-  value: string[][] | string[] | string;
-  id: number;
+interface FormFieldResponse {
+  value: string;
+  id: string;
   type: GoogleAppsScript.Forms.ItemType;
   question: {
     index: number;
@@ -13,15 +13,15 @@ interface FormResponse {
 }
 
 function parseFormData(data: GoogleAppsScript.Forms.ItemResponse[]):
-FormResponse[] {
-  const parsedResponses: FormResponse[] = [];
+FormFieldResponse[] {
+  const parsedResponses: FormFieldResponse[] = [];
 
-  data.map(({ getItem, getResponse }) => {
+  data.forEach(({ getItem, getResponse }) => {
     const { getId, getTitle, getHelpText, getIndex, getType } = getItem();
 
-    const response: FormResponse = {
-      value: getResponse(),
-      id: getId(),
+    const response: FormFieldResponse = {
+      value: getResponse().toString(),
+      id: getId().toString(),
       type: getType(),
       question: {
         index: getIndex(),
@@ -31,15 +31,6 @@ FormResponse[] {
     };
 
     parsedResponses.push(response);
-    
-    console.log(`
-      field id (integer/number) (ex.: 1793743734): ${response.id}
-      question title: ${response.question.title}
-      question description: ${response.question.description}
-      field position: ${response.question.index}
-      question type (ex.: CHECKBOX): ${response.type}
-    `);
-    console.log('response (string[][] | string[] | string): ' + response.value);
   });
 
   return parsedResponses;
