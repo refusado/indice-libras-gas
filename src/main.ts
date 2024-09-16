@@ -5,10 +5,3 @@ function responseToFormSubmit(event: GoogleAppsScript.Events.FormsOnFormSubmit) 
 
   sendToSheets(formattedRow);
 }
-
-function pingSupabase() {
-  // TODO: make an HTTP request to supabase
-  console.log("ping supabase");
-
-  supabasePingTrigger();
-}
