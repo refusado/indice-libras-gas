@@ -1,6 +1,11 @@
 function generateNextId(): number {
   const sheet = getSheet();
   const lastRow = sheet.getLastRow();
+
+  if (lastRow <= 1) { // if sheet is empty
+    return 1;
+  }
+
   const lastId = sheet.getRange(lastRow, ID_COLUMN_INDEX).getValue();
 
   if (typeof lastId !== 'number') {

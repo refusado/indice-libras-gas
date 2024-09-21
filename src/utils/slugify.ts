@@ -1,21 +1,24 @@
 function slugify(str: string): string {
-  str = str
+  function removeAccents(s: string): string {
+    return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  function removeGenders(s: string): string {
+    return s.replace(/\([ao]\)/g, ''); // removes '(a)' and '(o)'
+  }
+
+  return removeAccents(removeGenders(str))
     .trim()
     .toLowerCase()
-    .replace(/\s+/g, '-').replace(/[ ]/g, '-') // replace spaces with hyphens
-    .replace(/-+/g, '-') // remove consecutive hyphens
-    .replace(/[àÀáÁâÂãäÄÅåª]+/g, 'a')
-    .replace(/[èÈéÉêÊëË]+/g, 'e')
-    .replace(/[ìÌíÍîÎïÏ]+/g, 'i')
-    .replace(/[òÒóÓôÔõÕöÖº]+/g, 'o')
-    .replace(/[ùÙúÚûÛüÜ]+/g, 'u')
-    .replace(/[ýÝÿŸ]+/g, 'y')
-    .replace(/[ñÑ]+/g, 'n')
-    .replace(/[çÇ]+/g, 'c')
-    .replace(/[ß]+/g, 'ss')
-    .replace(/[Ææ]+/g, 'ae')
-    .replace(/[Øøœ]+/g, 'oe')
-    .replace(/[%]+/g, 'pct');
-
-  return str;
+    .replace(/\s+/g, '-') // spaces > hyphens
+    .replace(/[&]+/g, 'e') // & > e
+    .replace(/[ª]+/g, 'a') // ª > a
+    .replace(/[º]+/g, 'o') // º > o
+    .replace(/[ß]+/g, 'b') // ß > b
+    .replace(/[%]+/g, 'pct') // % > pct
+    .replace(/[(]+/g, '-') // ( > -
+    .replace(/[)]+/g, '-') // ) > -
+    .replace(/[^a-z0-9-]/g, '') // removes all non-alphanumeric characters except hyphens
+    .replace(/-+/g, '-') // removes consecutive hyphens
+    .replace(/^-|-$/g, ''); // trim hyphens from the start and end
 }
