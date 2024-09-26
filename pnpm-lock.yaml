@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      indice-libras-gas:
-        specifier: 'file:'
-        version: 'file:'
     devDependencies:
       '@types/google-apps-script':
         specifier: ^1.0.83
@@ -24,9 +20,6 @@ packages:
   '@types/google-apps-script@1.0.83':
     resolution: {integrity: sha512-o+QNeNZxPAfYHzRiLHjub9qF0IILg21r9MzYlnrIHUT+/wcC70aqDfedmzKTgtzsj79zvoTZD0cjGgy46+1Ynw==}
 
-  'indice-libras-gas@file:':
-    resolution: {directory: '', type: directory}
-
   typescript@5.6.2:
     resolution: {integrity: sha512-NW8ByodCSNCwZeghjN3o+JX5OFH0Ojg6sadjEKY4huZ52TqbJTJnDo5+Tw98lSy63NZvi4n+ez5m2u5d4PkZyw==}
     engines: {node: '>=14.17'}
@@ -35,7 +28,5 @@ packages:
 snapshots:
 
   '@types/google-apps-script@1.0.83': {}
-
-  'indice-libras-gas@file:': {}
 
   typescript@5.6.2: {}
