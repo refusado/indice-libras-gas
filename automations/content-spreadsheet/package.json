@@ -1,0 +1,6 @@
+{
+  "name": "content-spreadsheet",
+  "version": "1.0.0",
+  "devDependencies": {},
+  "main": "src/main.ts"
+}
